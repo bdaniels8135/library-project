@@ -1,5 +1,37 @@
+@font-face {
+    font-family: 'roboto';
+    src: url(./Roboto-Regular.ttf);
+}
+
 * {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
+    font-family: 'roboto', sans-serif;
     border: 1px solid red;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    flex: 2;
+    font-size: 3rem;
+    display: grid;
+    place-items: center;
+    background-color: #aee5f3;
+}
+
+main {
+    flex: 20;
+}
+
+footer {
+    flex: 1;
+    background-color: #aee5f3;
+    display: grid;
+    place-items: center;
 }
