@@ -9,3 +9,20 @@ function Book(title, author, numPages, haveRead) {
     };
 };
 
+const myLibrary = []
+
+function addBookToLibrary(newBook) {
+    myLibrary.push(newBook);
+}
+
+
+// ADDING TEST BOOKS TO LIBRARY FOR DEVELOPMENT
+const TEST_BOOKS = [
+    new Book('Dune', 'Frank Herbert', 896, true),
+    new Book('iRobot', 'Isaac Asimov', 253, true),
+    new Book('Throne of Glass', 'Sarah J. Maas', 432, true),
+]
+
+for (let book of TEST_BOOKS) {
+    addBookToLibrary(book);
+}
