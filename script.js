@@ -55,3 +55,5 @@ const newBookButton = document.querySelector('header img');
 addBookToLibrary(new Book('Dune', 'Frank Herbert', true))
 addBookToLibrary(new Book('Grapes of Wrath', 'John Steinbeck', false))
 addBookToLibrary(new Book('Where the Sidewalk Ends', 'Shel Silverstein', false))
+addBookToLibrary(new Book('Orlando', 'Virginia Woolf', false))
+addBookToLibrary(new Book('Throne of Glass', 'Sarah J. Maas', true))
