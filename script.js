@@ -1,28 +1,57 @@
-function Book(title, author, numPages, haveRead) {
+function Book(title, author, haveRead) {
     this.title = title;
     this.author = author;
-    this.numPages = numPages;
     this.haveRead = haveRead;
-
-    this.info = function() {
-        return `${this.title} by ${this.author}, ${this.numPages} pages, ${this.haveRead ? 'have' : 'have not'} read`;
-    };
 };
 
-const myLibrary = []
+const MY_LIBRARY = [];
+
+const MAIN = document.querySelector('main');
 
 function addBookToLibrary(newBook) {
-    myLibrary.push(newBook);
+    MY_LIBRARY.push(newBook);
+    MAIN.appendChild(createNewCard(newBook));
 }
 
+function createNewCard(newBook) {
+    const cardElem = document.createElement('div');
+    cardElem.classList.add('card');
+    const titleElem = document.createElement('p');
+    titleElem.classList.add('title');
+    titleElem.innerText = `${newBook.title}`;
+    const authorElem = document.createElement('p');
+    authorElem.classList.add('author');
+    authorElem.innerText = `${newBook.author}`;
+    const checkWrapperElem = document.createElement('div');
+    checkWrapperElem.classList.add('checkbox-wrapper');
+    const checkLabelElem = document.createElement('p');
+    checkLabelElem.innerText = 'Already Read:';
+    const inputElem = document.createElement('input');
+    inputElem.setAttribute('type', 'checkbox');
+    inputElem.setAttribute('name', 'read-book');
+    inputElem.setAttribute('id', `read-book-${MY_LIBRARY.length}`);
+    if (newBook.haveRead) {inputElem.setAttribute('checked', '')};
+    const btnElem = document.createElement('button');
+    btnElem.setAttribute('type', 'button');
+    const imgElem = document.createElement('img');
+    imgElem.setAttribute('src', './img/trash-can-outline.svg');
+    imgElem.setAttribute('alt', 'Trash Icon');
 
-// ADDING TEST BOOKS TO LIBRARY FOR DEVELOPMENT
-const TEST_BOOKS = [
-    new Book('Dune', 'Frank Herbert', 896, true),
-    new Book('iRobot', 'Isaac Asimov', 253, true),
-    new Book('Throne of Glass', 'Sarah J. Maas', 432, true),
-]
+    cardElem.appendChild(titleElem);
+    cardElem.appendChild(authorElem);
+    cardElem.appendChild(checkWrapperElem);
+    cardElem.appendChild(btnElem);
+    checkWrapperElem.appendChild(checkLabelElem);
+    checkWrapperElem.appendChild(inputElem);
+    btnElem.appendChild(imgElem);
 
-for (let book of TEST_BOOKS) {
-    addBookToLibrary(book);
+    return cardElem;
 }
+
+const newBookButton = document.querySelector('header img');
+
+// Add some books by default
+
+addBookToLibrary(new Book('Dune', 'Frank Herbert', true))
+addBookToLibrary(new Book('Grapes of Wrath', 'John Steinbeck', false))
+addBookToLibrary(new Book('Where the Sidewalk Ends', 'Shel Silverstein', false))
