@@ -6,16 +6,20 @@ function Book(title, author, haveRead) {
 };
 
 const ui = {
-    main: document.querySelector('main'),
-    newBookButton: document.querySelector('header img'),
+    _main: document.querySelector('main'),
+    _newBookButton: document.querySelector('header img'),
     
+    initialize() {
+        ui._newBookButton.addEventListener('click', (event) => console.log(event));
+    },
+
     refreshLibraryCards() {
-        ui.main.innerHTML = '';
+        ui._main.innerHTML = '';
         for (let book of myLibrary.books) {
             const newCard = ui.createNewCard(book);
             ui.addDeleteEventListener(newCard, book);
             ui.addReadCheckEventListener(newCard, book);
-            ui.main.appendChild(newCard);
+            ui._main.appendChild(newCard);
         }
     },
 
@@ -93,11 +97,7 @@ const myLibrary = {
     },
 }
 
-ui.newBookButton.addEventListener('click', (event) => console.log(event));
-
-
-
-// Add some books by default
+ui.initialize();
 myLibrary.addBook(new Book('Dune', 'Frank Herbert', true));
 myLibrary.addBook(new Book('Grapes of Wrath', 'John Steinbeck', false));
 myLibrary.addBook(new Book('Where the Sidewalk Ends', 'Shel Silverstein', false));
