@@ -36,9 +36,11 @@ header img {
 main {
     flex: 20;
     display: grid;
+    grid-template-columns: minmax(250px, 500px);
     grid-auto-rows: min-content;
     gap: 1rem;
     padding: 1rem;
+    overflow-y: scroll;
 }
 
 main .card {
@@ -46,7 +48,7 @@ main .card {
     border-radius: 1rem;
     padding: 1rem;
     display: grid;
-    grid-template: 4rem 4rem min-content / 1fr 1fr;
+    grid-template: 2.5rem 2.5rem min-content / 1fr 1fr;
     border: 2px solid black;
 }
 
@@ -71,6 +73,8 @@ main .card .checkbox-wrapper {
     align-self: center;
     font-size: 1.2rem;
     font-weight: 600;
+    display: flex;
+    gap: 1rem;
 }
 
 main .card button {
