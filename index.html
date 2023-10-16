@@ -12,8 +12,25 @@
         <p>My Library</p>
         <img src="./img/plus.svg" alt="Add New Book">
     </header>
+    <dialog class="new-book-modal">
+        <form method="dialog">
+            <label for="new-book-title">Enter new book title:</label>
+            <input autofocus type="text" name="new-book-title" id="new-book-title">
+            <label for="new-book-author">Enter new book author:</label>
+            <input type="text" name="new-book-author" id="new-book-author">
+            <div class="checkbox-wrapper">
+                <label for="new-book-read">Already Read:</label>
+                <input type="checkbox" name="new-book-read" id="new-book-read">
+            </div>
+            <div class="buttons-wrapper">
+                <button type="button">Cancel</button>
+                <button type="submit">Add New Book</button>
+            </div>
+        </form>
+   </dialog> 
     <main>
     </main>
     <footer>Copyright &copy; 2023 bdaniels8135</footer>
+    
 </body>
 </html>

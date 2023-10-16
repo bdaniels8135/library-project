@@ -8,9 +8,12 @@ function Book(title, author, haveRead) {
 const ui = {
     _main: document.querySelector('main'),
     _newBookButton: document.querySelector('header img'),
-    
+    _newBookModal: document.querySelector('dialog'),
+
     initialize() {
-        ui._newBookButton.addEventListener('click', (event) => console.log(event));
+        ui._newBookButton.addEventListener('click', () => {
+            this._newBookModal.showModal();
+        });
     },
 
     refreshLibraryCards() {
