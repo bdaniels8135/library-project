@@ -2,7 +2,7 @@ function Book(title, author, haveRead) {
     this.title = title;
     this.author = author;
     this.haveRead = haveRead;
-    this.libraryIndex = null;
+    this.id = null;
 };
 
 const ui = {
@@ -14,20 +14,27 @@ const ui = {
         for (let book of myLibrary.books) {
             const newCard = ui.createNewCard(book);
             ui.addDeleteEventListener(newCard, book);
+            ui.addReadCheckEventListener(newCard, book);
             ui.main.appendChild(newCard);
         }
     },
 
     addDeleteEventListener(card, book) {
         card.querySelector('button').addEventListener('click', () => {
-                myLibrary.removeBook(book.libraryIndex);
+                myLibrary.removeBook(book);
             });
+    },
+
+    addReadCheckEventListener(card, book) {
+        card.querySelector('input').addEventListener('change', () => {
+                myLibrary.toggleHaveRead(book);
+        })
     },
 
     createNewCard(libraryBook) {
         const cardElem = document.createElement('div');
         cardElem.classList.add('card');
-        cardElem.setAttribute('id', `card-${libraryBook.libraryIndex}`)
+        cardElem.setAttribute('id', `card-${libraryBook.id}`)
         const titleElem = document.createElement('p');
         titleElem.classList.add('title');
         titleElem.innerText = `${libraryBook.title}`;
@@ -41,11 +48,11 @@ const ui = {
         const inputElem = document.createElement('input');
         inputElem.setAttribute('type', 'checkbox');
         inputElem.setAttribute('name', 'read-book-check');
-        inputElem.setAttribute('id', `read-book-check-${libraryBook.libraryIndex}`);
+        inputElem.setAttribute('id', `read-book-check-${libraryBook.id}`);
         if (libraryBook.haveRead) {inputElem.setAttribute('checked', '')};
         const btnElem = document.createElement('button');
         btnElem.setAttribute('type', 'button');
-        btnElem.setAttribute('id', `trash-button-${libraryBook.libraryIndex}`)
+        btnElem.setAttribute('id', `trash-button-${libraryBook.id}`)
         const imgElem = document.createElement('img');
         imgElem.setAttribute('src', './img/trash-can-outline.svg');
         imgElem.setAttribute('alt', 'Trash Icon');
@@ -64,24 +71,31 @@ const ui = {
 
 const myLibrary = {
     books: [],
-    _nextBookID: 0,
+    _nextBookId: 0,
 
     addBook(newBook) {
-        newBook.libraryIndex = myLibrary._nextBookID;
-        myLibrary._nextBookID += 1;
+        newBook.id = myLibrary._nextBookId;
+        myLibrary._nextBookId += 1;
         myLibrary.books.push(newBook);
         ui.refreshLibraryCards();
     },
 
-    removeBook(bookLibraryIndex) {
-        myLibrary.books = myLibrary.books.filter((book) => {
-            return book.libraryIndex != bookLibraryIndex
+    removeBook(bookToRemove) {
+        const deleteIndex = myLibrary.books.findIndex((book) => {
+            return bookToRemove.id === book.id;
         })
+        myLibrary.books.splice(deleteIndex, 1)
         ui.refreshLibraryCards();
+    },
+
+    toggleHaveRead(bookToToggle) {
+        bookToToggle.haveRead = !bookToToggle.haveRead;
     },
 }
 
 ui.newBookButton.addEventListener('click', (event) => console.log(event));
+
+
 
 // Add some books by default
 myLibrary.addBook(new Book('Dune', 'Frank Herbert', true));
