@@ -2,7 +2,7 @@ function Book(title, author, haveRead) {
     this.title = title;
     this.author = author;
     this.haveRead = haveRead;
-    this.id = null;
+    this._id = null;
 };
 
 const ui = {
@@ -41,7 +41,7 @@ const ui = {
     createNewCard(libraryBook) {
         const cardElem = document.createElement('div');
         cardElem.classList.add('card');
-        cardElem.setAttribute('id', `card-${libraryBook.id}`)
+        cardElem.setAttribute('id', `card-${libraryBook._id}`)
         const titleElem = document.createElement('p');
         titleElem.classList.add('title');
         titleElem.innerText = `${libraryBook.title}`;
@@ -55,11 +55,11 @@ const ui = {
         const inputElem = document.createElement('input');
         inputElem.setAttribute('type', 'checkbox');
         inputElem.setAttribute('name', 'read-book-check');
-        inputElem.setAttribute('id', `read-book-check-${libraryBook.id}`);
+        inputElem.setAttribute('id', `read-book-check-${libraryBook._id}`);
         if (libraryBook.haveRead) {inputElem.setAttribute('checked', '')};
         const btnElem = document.createElement('button');
         btnElem.setAttribute('type', 'button');
-        btnElem.setAttribute('id', `trash-button-${libraryBook.id}`)
+        btnElem.setAttribute('id', `trash-button-${libraryBook._id}`)
         const imgElem = document.createElement('img');
         imgElem.setAttribute('src', './img/trash-can-outline.svg');
         imgElem.setAttribute('alt', 'Trash Icon');
@@ -81,7 +81,7 @@ const myLibrary = {
     _nextBookId: 0,
 
     addBook(newBook) {
-        newBook.id = myLibrary._nextBookId;
+        newBook._id = myLibrary._nextBookId;
         myLibrary._nextBookId += 1;
         myLibrary.books.push(newBook);
         ui.refreshLibraryCards();
@@ -89,7 +89,7 @@ const myLibrary = {
 
     removeBook(bookToRemove) {
         const deleteIndex = myLibrary.books.findIndex((book) => {
-            return bookToRemove.id === book.id;
+            return bookToRemove._id === book._id;
         })
         myLibrary.books.splice(deleteIndex, 1)
         ui.refreshLibraryCards();
