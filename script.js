@@ -9,11 +9,35 @@ const ui = {
     _main: document.querySelector('main'),
     _newBookButton: document.querySelector('header img'),
     _newBookModal: document.querySelector('dialog'),
+    _newBookTitle: document.getElementById('new-book-title'),
+    _newBookAuthor: document.getElementById('new-book-author'),
+    _newBookRead: document.getElementById('new-book-read'),
+    _cancelBtn: document.getElementById('cancel-btn'),
+    _submitBtn: document.getElementById('submit-btn'),
 
     initialize() {
         ui._newBookButton.addEventListener('click', () => {
-            this._newBookModal.showModal();
-        });
+            ui._newBookModal.showModal();
+        })
+
+        ui._cancelBtn.addEventListener('click', () => {
+            ui._newBookModal.close();
+            ui._newBookTitle.value = '';
+            ui._newBookAuthor.value = '';
+            ui._newBookRead.checked = false;
+        })
+
+        ui._submitBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            ui._newBookModal.close();
+            const newTitle = ui._newBookTitle.value;
+            const newAuthor = ui._newBookAuthor.value;
+            const newRead = ui._newBookRead.checked;
+            myLibrary.addBook(new Book(newTitle, newAuthor, newRead));
+            ui._newBookTitle.value = '';
+            ui._newBookAuthor.value = '';
+            ui._newBookRead.checked = false;
+        })
     },
 
     refreshLibraryCards() {
@@ -101,8 +125,8 @@ const myLibrary = {
 }
 
 ui.initialize();
-myLibrary.addBook(new Book('Dune', 'Frank Herbert', true));
-myLibrary.addBook(new Book('Grapes of Wrath', 'John Steinbeck', false));
-myLibrary.addBook(new Book('Where the Sidewalk Ends', 'Shel Silverstein', false));
-myLibrary.addBook(new Book('Orlando', 'Virginia Woolf', false));
-myLibrary.addBook(new Book('Throne of Glass', 'Sarah J. Maas', true));
+// myLibrary.addBook(new Book('Dune', 'Frank Herbert', true));
+// myLibrary.addBook(new Book('Grapes of Wrath', 'John Steinbeck', false));
+// myLibrary.addBook(new Book('Where the Sidewalk Ends', 'Shel Silverstein', false));
+// myLibrary.addBook(new Book('Orlando', 'Virginia Woolf', false));
+// myLibrary.addBook(new Book('Throne of Glass', 'Sarah J. Maas', true));
