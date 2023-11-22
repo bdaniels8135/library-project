@@ -1,5 +1,6 @@
 export default function CardsDisplay() {
   const HTML = document.createElement("div");
+  HTML.classList.add("cards-display");
   const cards = [];
 
   function addCard(cardToAdd) {

@@ -40,6 +40,9 @@ header img {
 
 main {
     flex: 18;
+}
+
+main .cards-display {
     display: grid;
     grid-template-columns: minmax(250px, 400px);
     grid-auto-rows: min-content;
