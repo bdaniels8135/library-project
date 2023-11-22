@@ -18,28 +18,48 @@ const UI = {
   submitBtn: document.getElementById("submit-btn"),
 };
 
-UI.main.appendChild(cardsDisplay.HTML);
-
-UI.newBookBtn.addEventListener("click", () => {
+function displayModal() {
   UI.newBookModal.showModal();
-});
+}
 
-UI.cancelBtn.addEventListener("click", () => {
-  UI.newBookModal.close();
+function clearModal() {
   UI.newBookTitle.value = "";
   UI.newBookAuthor.value = "";
   UI.newBookHaveRead.checked = false;
-});
+}
+
+function closeModal() {
+  UI.newBookModal.close();
+}
+
+function collectModalInput() {
+  const title = UI.newBookTitle.value;
+  const author = UI.newBookAuthor.value;
+  const haveRead = UI.newBookHaveRead.checked;
+
+  return {
+    title,
+    author,
+    haveRead,
+  };
+}
+
+function cancelModal() {
+  closeModal();
+  clearModal();
+}
+
+UI.newBookBtn.addEventListener("click", displayModal);
+
+UI.cancelBtn.addEventListener("click", cancelModal);
 
 UI.submitBtn.addEventListener("click", (event) => {
   event.preventDefault();
-  UI.newBookModal.close();
-  const newTitle = UI.newBookTitle.value;
-  const newAuthor = UI.newBookAuthor.value;
-  const newHaveRead = UI.newBookHaveRead.checked;
-  const newBook = new Book(newTitle, newAuthor, newHaveRead);
+  closeModal();
+  const { title, author, haveRead } = collectModalInput();
+  const newBook = new Book(title, author, haveRead);
   library.addBook(newBook);
-  const newCard = new Card(newTitle, newAuthor, newHaveRead);
+  const newCard = new Card(title, author, haveRead);
   newCard.addDeleteBtnClickFunc(() => {
     library.removeBook(newBook);
     cardsDisplay.removeCard(newCard);
@@ -48,7 +68,7 @@ UI.submitBtn.addEventListener("click", (event) => {
     newBook.toggleHaveRead();
   });
   cardsDisplay.addCard(newCard);
-  UI.newBookTitle.value = "";
-  UI.newBookAuthor.value = "";
-  UI.newBookHaveRead.checked = false;
+  clearModal();
 });
+
+UI.main.appendChild(cardsDisplay.HTML);
