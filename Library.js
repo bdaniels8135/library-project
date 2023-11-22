@@ -3,17 +3,19 @@ import Book from "./Book.js";
 export default function Library() {
   const books = [];
 
-  const getBooks = () => books;
+  function getBooks() {
+    return [...books];
+  }
 
-  const addBook = (title, author, haveRead) => {
+  function addBook(title, author, haveRead) {
     const bookToAdd = new Book(title, author, haveRead);
     books.push(bookToAdd);
-  };
+  }
 
-  const removeBook = (bookToRemove) => {
+  function removeBook(bookToRemove) {
     const deleteIndex = books.findIndex((book) => book === bookToRemove);
     books.splice(deleteIndex, 1);
-  };
+  }
 
   return {
     getBooks,
