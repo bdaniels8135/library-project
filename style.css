@@ -29,6 +29,7 @@ header {
     justify-content: space-between;
     padding: 0 2rem;
     border-bottom: 2px solid black;
+    box-shadow: 0 1rem 1rem grey;
 }
 
 header img {
@@ -36,6 +37,16 @@ header img {
     background-color: white;
     border-radius: 50%;
     height: 3rem;
+    cursor: pointer;
+}
+
+header img:hover {
+    background-color: rgb(200, 200, 200);
+}
+
+header img:active {
+    background-color: rgb(150, 150, 150);
+    box-shadow: .25rem .25rem .25rem grey;
 }
 
 main {
@@ -144,6 +155,10 @@ dialog form .checkbox-wrapper {
     gap: 1rem;
 }
 
+.checkbox-wrapper input {
+    cursor: pointer;
+}
+
 dialog form .buttons-wrapper {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -153,4 +168,5 @@ dialog form .buttons-wrapper {
 dialog form button {
     font-size: 1.1rem;
     padding: .5rem;
+    cursor: pointer;
 }
