@@ -37,13 +37,6 @@ const addReadCheckEventListener = (card, book) => {
   });
 };
 
-const addDeleteEventListener = (card, book) => {
-  card.HTML.querySelector("button").addEventListener("click", () => {
-    library.removeBook(book);
-    cardsDisplay.removeCard(card);
-  });
-};
-
 UI.submitBtn.addEventListener("click", (event) => {
   event.preventDefault();
   UI.newBookModal.close();
@@ -53,7 +46,10 @@ UI.submitBtn.addEventListener("click", (event) => {
   const newBook = new Book(newTitle, newAuthor, newHaveRead);
   library.addBook(newBook);
   const newCard = new Card(newTitle, newAuthor, newHaveRead);
-  addDeleteEventListener(newCard, newBook);
+  newCard.addDeleteBtnClickFunc(() => {
+    library.removeBook(newBook);
+    cardsDisplay.removeCard(newCard);
+  });
   addReadCheckEventListener(newCard, newBook);
   cardsDisplay.addCard(newCard);
   UI.newBookTitle.value = "";

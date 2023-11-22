@@ -39,4 +39,9 @@ export default class Card {
   constructor(title, author, haveRead) {
     this.HTML = buildCardHtml(title, author, haveRead);
   }
+
+  addDeleteBtnClickFunc(clickFunc) {
+    const deleteBtn = this.HTML.querySelector("button");
+    deleteBtn.addEventListener("click", clickFunc);
+  }
 }
