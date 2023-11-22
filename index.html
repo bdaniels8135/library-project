@@ -13,11 +13,19 @@
         <img src="./img/plus.svg" alt="Add New Book">
     </header>
     <dialog class="new-book-modal">
-        <form method="dialog">
-            <label for="new-book-title">Enter new book title:</label>
-            <input autofocus type="text" name="new-book-title" id="new-book-title">
-            <label for="new-book-author">Enter new book author:</label>
-            <input type="text" name="new-book-author" id="new-book-author">
+        <form name="new-book-form" id="new-book-form" method="dialog">
+            <label for="new-book-title">
+                <span class="input-instructions">Enter new book title:</span>
+                <span class="required">*required</span>
+                <input autofocus type="text" name="new-book-title" id="new-book-title">
+            </label>
+            
+            <label for="new-book-author">
+                <span class="input-instructions">Enter new book author:</span>
+                <span class="required">*required</span>
+                <input type="text" name="new-book-author" id="new-book-author">
+            </label>
+            
             <div class="checkbox-wrapper">
                 <label for="new-book-read">Already Read:</label>
                 <input type="checkbox" name="new-book-read" id="new-book-read">
