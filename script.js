@@ -31,12 +31,6 @@ UI.cancelBtn.addEventListener("click", () => {
   UI.newBookHaveRead.checked = false;
 });
 
-const addReadCheckEventListener = (card, book) => {
-  card.HTML.querySelector("input").addEventListener("change", () => {
-    book.toggleHaveRead();
-  });
-};
-
 UI.submitBtn.addEventListener("click", (event) => {
   event.preventDefault();
   UI.newBookModal.close();
@@ -50,7 +44,9 @@ UI.submitBtn.addEventListener("click", (event) => {
     library.removeBook(newBook);
     cardsDisplay.removeCard(newCard);
   });
-  addReadCheckEventListener(newCard, newBook);
+  newCard.addCheckboxChangeFunc(() => {
+    newBook.toggleHaveRead();
+  });
   cardsDisplay.addCard(newCard);
   UI.newBookTitle.value = "";
   UI.newBookAuthor.value = "";

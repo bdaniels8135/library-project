@@ -44,4 +44,9 @@ export default class Card {
     const deleteBtn = this.HTML.querySelector("button");
     deleteBtn.addEventListener("click", clickFunc);
   }
+
+  addCheckboxChangeFunc(changeFunc) {
+    const haveReadCheckbox = this.HTML.querySelector("input");
+    haveReadCheckbox.addEventListener("change", changeFunc);
+  }
 }
