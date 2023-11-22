@@ -150,6 +150,20 @@ dialog form label {
     font-size: 1.2rem;
 }
 
+dialog form label .required {
+    color: red;
+    font-size: .75rem;
+    vertical-align: top;
+}
+
+dialog form input[type=text] {
+    margin-top: .5rem;
+}
+
+dialog form input:invalid {
+    border-color: red;
+}
+
 dialog form .checkbox-wrapper {
     display: flex;
     gap: 1rem;
