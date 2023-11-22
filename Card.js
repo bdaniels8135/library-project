@@ -36,8 +36,7 @@ function buildCardHtml(title, author, haveRead) {
 }
 
 export default class Card {
-  constructor(book) {
-    const { title, author, haveRead } = book;
-    this.html = buildCardHtml(title, author, haveRead);
+  constructor(title, author, haveRead) {
+    this.HTML = buildCardHtml(title, author, haveRead);
   }
 }
