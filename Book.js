@@ -3,7 +3,6 @@ export default class Book {
     this.title = title;
     this.author = author;
     this.haveRead = haveRead;
-    this.id = null;
   }
 
   toggleHaveRead() {
