@@ -1,5 +1,3 @@
-import Book from "./Book.js";
-
 export default function Library() {
   const books = [];
 
@@ -7,8 +5,7 @@ export default function Library() {
     return [...books];
   }
 
-  function addBook(title, author, haveRead) {
-    const bookToAdd = new Book(title, author, haveRead);
+  function addBook(bookToAdd) {
     books.push(bookToAdd);
   }
 
