@@ -1,62 +1,62 @@
 import Library from "./Library.js";
 import Card from "./Card.js";
+import Book from "./Book.js";
+import CardsDisplay from "./CardsDisplay.js";
 
-const myLibrary = Library();
+const library = Library();
+
+const cardsDisplay = CardsDisplay();
 
 const UI = {
-  MAIN: document.querySelector("main"),
-  NEW_BOOK_BUTTON: document.querySelector("header img"),
-  NEW_BOOK_MODAL: document.querySelector("dialog"),
-  NEW_BOOK_TITLE: document.getElementById("new-book-title"),
-  NEW_BOOK_AUTHOR: document.getElementById("new-book-author"),
-  NEW_BOOK_READ: document.getElementById("new-book-read"),
-  CANCEL_BTN: document.getElementById("cancel-btn"),
-  SUBMIT_BTN: document.getElementById("submit-btn"),
+  main: document.querySelector("main"),
+  newBookBtn: document.querySelector("header img"),
+  newBookModal: document.querySelector("dialog"),
+  newBookTitle: document.getElementById("new-book-title"),
+  newBookAuthor: document.getElementById("new-book-author"),
+  newBookHaveRead: document.getElementById("new-book-read"),
+  cancelBtn: document.getElementById("cancel-btn"),
+  submitBtn: document.getElementById("submit-btn"),
 };
 
-UI.NEW_BOOK_BUTTON.addEventListener("click", () => {
-  UI.NEW_BOOK_MODAL.showModal();
+UI.main.appendChild(cardsDisplay.HTML);
+
+UI.newBookBtn.addEventListener("click", () => {
+  UI.newBookModal.showModal();
 });
 
-UI.CANCEL_BTN.addEventListener("click", () => {
-  UI.NEW_BOOK_MODAL.close();
-  UI.NEW_BOOK_TITLE.value = "";
-  UI.NEW_BOOK_AUTHOR.value = "";
-  UI.NEW_BOOK_READ.checked = false;
+UI.cancelBtn.addEventListener("click", () => {
+  UI.newBookModal.close();
+  UI.newBookTitle.value = "";
+  UI.newBookAuthor.value = "";
+  UI.newBookHaveRead.checked = false;
 });
-
-const refreshLibraryCards = () => {
-  UI.MAIN.innerHTML = "";
-  myLibrary.getBooks().forEach((book) => {
-    const newCard = new Card(book);
-    addDeleteEventListener(newCard.html, book);
-    addReadCheckEventListener(newCard.html, book);
-    UI.MAIN.appendChild(newCard.html);
-  });
-};
-
-UI.SUBMIT_BTN.addEventListener("click", (event) => {
-  event.preventDefault();
-  UI.NEW_BOOK_MODAL.close();
-  const newTitle = UI.NEW_BOOK_TITLE.value;
-  const newAuthor = UI.NEW_BOOK_AUTHOR.value;
-  const newHaveRead = UI.NEW_BOOK_READ.checked;
-  myLibrary.addBook(newTitle, newAuthor, newHaveRead);
-  refreshLibraryCards();
-  UI.NEW_BOOK_TITLE.value = "";
-  UI.NEW_BOOK_AUTHOR.value = "";
-  UI.NEW_BOOK_READ.checked = false;
-});
-
-const addDeleteEventListener = (card, book) => {
-  card.querySelector("button").addEventListener("click", () => {
-    myLibrary.removeBook(book);
-    refreshLibraryCards();
-  });
-};
 
 const addReadCheckEventListener = (card, book) => {
-  card.querySelector("input").addEventListener("change", () => {
+  card.HTML.querySelector("input").addEventListener("change", () => {
     book.toggleHaveRead();
   });
 };
+
+const addDeleteEventListener = (card, book) => {
+  card.HTML.querySelector("button").addEventListener("click", () => {
+    library.removeBook(book);
+    cardsDisplay.removeCard(card);
+  });
+};
+
+UI.submitBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+  UI.newBookModal.close();
+  const newTitle = UI.newBookTitle.value;
+  const newAuthor = UI.newBookAuthor.value;
+  const newHaveRead = UI.newBookHaveRead.checked;
+  const newBook = new Book(newTitle, newAuthor, newHaveRead);
+  library.addBook(newBook);
+  const newCard = new Card(newTitle, newAuthor, newHaveRead);
+  addDeleteEventListener(newCard, newBook);
+  addReadCheckEventListener(newCard, newBook);
+  cardsDisplay.addCard(newCard);
+  UI.newBookTitle.value = "";
+  UI.newBookAuthor.value = "";
+  UI.newBookHaveRead.checked = false;
+});
