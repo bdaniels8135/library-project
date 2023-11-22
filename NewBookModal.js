@@ -1,8 +1,8 @@
 export default function NewBookModal() {
   const HTML = document.querySelector("dialog");
-  const newBookTitle = HTML.querySelector("#new-book-title");
-  const newBookAuthor = HTML.querySelector("#new-book-author");
-  const newBookHaveRead = HTML.querySelector("#new-book-read");
+  const newBookTitleInput = HTML.querySelector("#new-book-title");
+  const newBookAuthorInput = HTML.querySelector("#new-book-author");
+  const newBookHaveReadInput = HTML.querySelector("#new-book-read");
   const cancelBtn = HTML.querySelector("#cancel-btn");
   const submitBtn = HTML.querySelector("#submit-btn");
 
@@ -11,9 +11,9 @@ export default function NewBookModal() {
   }
 
   function clearModal() {
-    newBookTitle.value = "";
-    newBookAuthor.value = "";
-    newBookHaveRead.checked = false;
+    newBookTitleInput.value = "";
+    newBookAuthorInput.value = "";
+    newBookHaveReadInput.checked = false;
   }
 
   function closeModal() {
@@ -21,9 +21,9 @@ export default function NewBookModal() {
   }
 
   function collectModalInput() {
-    const title = newBookTitle.value;
-    const author = newBookAuthor.value;
-    const haveRead = newBookHaveRead.checked;
+    const title = newBookTitleInput.value;
+    const author = newBookAuthorInput.value;
+    const haveRead = newBookHaveReadInput.checked;
 
     return {
       title,
@@ -32,21 +32,41 @@ export default function NewBookModal() {
     };
   }
 
+  function validateInput(input) {
+    if (input.value) input.setCustomValidity("");
+    else {
+      input.setCustomValidity("This field is required.");
+      input.reportValidity();
+    }
+    return input.validity.valid;
+  }
+
+  newBookTitleInput.addEventListener("focusout", () => {
+    validateInput(newBookTitleInput);
+  });
+
+  newBookAuthorInput.addEventListener("focusout", () => {
+    validateInput(newBookAuthorInput);
+  });
+
   function addSubmitBtnClickFunc(clickFunc) {
     submitBtn.addEventListener("click", (event) => {
       event.preventDefault();
-      closeModal();
-      clickFunc();
-      clearModal();
+      if (
+        validateInput(newBookTitleInput) &&
+        validateInput(newBookAuthorInput)
+      ) {
+        closeModal();
+        clickFunc();
+        clearModal();
+      }
     });
   }
 
-  function cancelModal() {
+  cancelBtn.addEventListener("click", () => {
     closeModal();
     clearModal();
-  }
-
-  cancelBtn.addEventListener("click", cancelModal);
+  });
 
   return {
     HTML,
